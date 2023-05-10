@@ -2,7 +2,9 @@ import 'package:courtside_version_2/pages/homepage.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const MaterialApp(
+    home: HomePage()
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -14,10 +16,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white70,
-        primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: Color.fromARGB(255, 0, 0, 0),
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
