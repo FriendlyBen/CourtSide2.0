@@ -12,14 +12,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             color: Colors.grey.withOpacity(0.3),
             spreadRadius: 1,
             blurRadius: 5,
-            offset: Offset(0, 2),
+            offset: const Offset(0, 2),
           ),
         ],
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
         child: AppBar(
-            title: Container( margin: const EdgeInsets.only(top: 25),
+            title: Container( margin: const EdgeInsets.only(top: 15),
               child: const Text(
                 'COURTSIDE',
                 style: TextStyle(
@@ -52,16 +52,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
               ],
             )
-
-            // IconButton(
-            //   icon: Icon(Icons.person_pin_circle_outlined, size: 40),
-            //   color: Colors.black,
-            //   style: ButtonStyle(),
-            //   onPressed: () {
-            //     Scaffold.of(context).openDrawer();
-            //   },
-            //   padding: const EdgeInsets.only(left: 20),
-            // ),
             ),
       ),
     );
@@ -70,43 +60,4 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   // TODO: implement preferredSize
   Size get preferredSize => const Size.fromHeight(70);
-
-  //   @override
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     appBar: PreferredSize(
-  //       preferredSize: Size.fromHeight(60.0),
-  //       child: Container(
-  //         margin: EdgeInsets.all(16.0),
-  //         decoration: BoxDecoration(
-  //           color: const Color(0xFFF0F8FF),
-  //           borderRadius: BorderRadius.circular(10.0),
-  // boxShadow: [
-  //   BoxShadow(
-  //     color: Colors.grey.withOpacity(0.3),
-  //     spreadRadius: 1,
-  //     blurRadius: 5,
-  //     offset: Offset(0, 2),
-  //   ),
-  // ],
-  //         ),
-  //         child: AppBar(
-  //           backgroundColor: Colors.transparent,
-  //           elevation: 0,
-  //           centerTitle: true,
-  //           title: const Text(
-  //             'COURTSIDE',
-  //             style: TextStyle(
-  //               fontFamily: 'Raleway',
-  //               fontWeight: FontWeight.w900,
-  //               fontSize: 20,
-  //               color: Color(0xFF38b6ff),
-  //             ),
-  //           ),
-  //         ),
-  //       ),
-  //     ),
-
-  //   );
-  // }
 }
