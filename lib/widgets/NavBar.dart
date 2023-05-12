@@ -3,6 +3,15 @@ import 'package:courtside_version_2/pages/games.dart';
 import 'package:courtside_version_2/pages/favourites.dart';
 import 'package:courtside_version_2/pages/players.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+class BottomNavBarCubit extends Cubit<int>{
+  BottomNavBarCubit() : super(0);
+
+  void updatePageIndex(int index){
+    emit(index);
+  }
+}
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -60,15 +69,18 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   void _onItemTapped(int index) {
     setState(() {
+      print('Tapped: ${index}');
       _selectedIndex = index;
       _currentPage = _pages[index];
     });
 
-    Navigator.of(context).push(MaterialPageRoute(builder: (context)=> _currentPage));
+    // Navigator.of(context).push(MaterialPageRoute(builder: (context)=> _currentPage));
   }
 
   @override
   Widget build(BuildContext context) {
+    final bottomNavBarCubit = context.watch<BottomNavBarCubit>();
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
       decoration: BoxDecoration(
@@ -86,8 +98,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
         child: BottomNavigationBar(
           backgroundColor: Colors.black,
           items: _BottomNavBarItems,
-          currentIndex: _selectedIndex,
-          onTap: _onItemTapped,
+          currentIndex: bottomNavBarCubit.state,
+          onTap: (index) => bottomNavBarCubit.updatePageIndex(index),
           selectedItemColor: Colors.blue,
         ),
       ),

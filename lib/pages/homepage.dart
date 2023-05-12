@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:courtside_version_2/widgets/AppBar.dart';
-import 'package:courtside_version_2/widgets/NavBar.dart';
-import 'package:courtside_version_2/widgets/Drawer.dart';
 
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
-
-  static const String title = 'CourtSide 2.0';
-
   @override
   State<HomePage> createState() => _HomePageState();
 
@@ -18,12 +12,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(),
-      drawer: CustomDrawer(),
-      body: const Center(child: Text("Testing"),
+
+    return const Scaffold(
+      body: Center(child: Text("HomePage"),
         ),
-      bottomNavigationBar: const BottomNavBar(),
+
     );
   }
 }
