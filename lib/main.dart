@@ -10,13 +10,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 
 void main() {
-  runApp(MaterialApp(
+  runApp(const MaterialApp(
     home: MyApp(title: 'test',)
   ));
 }
 
 class MyApp extends StatefulWidget {
-    MyApp({super.key, required this.title});
+    const MyApp({super.key, required this.title});
 
   final String title;
 
@@ -32,10 +32,10 @@ class _MyAppState extends State<MyApp>{
       home: BlocBuilder<BottomNavBarCubit, int>(
         builder: (context, selectedIndex){
           return Scaffold(
-            appBar: CustomAppBar(),
-            drawer: CustomDrawer(),
+            appBar: const CustomAppBar(),
+            drawer: const CustomDrawer(),
             body: _getPage(selectedIndex),
-            bottomNavigationBar: BottomNavBar(),
+            bottomNavigationBar: const BottomNavBar(),
           );
         },
       ),
@@ -46,13 +46,13 @@ class _MyAppState extends State<MyApp>{
   Widget _getPage(int index){
   switch(index){
     case 0:
-    return HomePage();
+    return const HomePage();
     case 1:
-    return GamesPage();
+    return const GamesPage();
     case 2:
-    return PlayersPage();
+    return const PlayersPage();
     case 3:
-    return FavouritesPage();
+    return const FavouritesPage();
     default:
     return Container();
   }
