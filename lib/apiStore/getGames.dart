@@ -4,51 +4,43 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class GetGames extends StatefulWidget {
-  const GetGames({super.key}); //get the date
+  const GetGames({Key? key});
+
   @override
-  _getGamesState createState() => _getGamesState();
+  _GetGamesState createState() => _GetGamesState();
 }
 
-class _getGamesState extends State<GetGames> {
+class _GetGamesState extends State<GetGames> {
   static const String apiKey = 'rkcd9u7zu893xzms99pdmxtf';
-  late String gameID;
-  late String gameStatus;
-  late String gameTitle;
-  late String gameTime;
-  late String gameVenue;
-  late String gameVenue2;
-  late String homeAlias;
-  late String homeName;
-  late String awayAlias;
-  late String awayName;
+  late String? gameID;
+  late String? gameStatus;
+  late String? gameTitle;
+  late String? gameTime;
+  late String? gameVenue;
+  late String? gameVenue2;
+  late String? homeAlias;
+  late String? homeName;
+  late String? awayAlias;
+  late String? awayName;
 
-  dynamic gameData;
-
-  @override
-  void initState() {
-    super.initState();
-    getGamesData(2023, 4, 28);
-  }
-
-  Future<dynamic> getGamesData(int year, int month, int day) async {
-    String apiUrl =
-        'http://api.sportradar.us/nba/trial/v8/en/games/$year/$month/$day/schedule.json?api_key=$apiKey';
-
-    var response = await http.get(Uri.parse(apiUrl));
-
-    if (response.statusCode == 200) {
-      setState(() {
-        gameData = jsonDecode(response.body);
-      });
-    }
-  }
+  Future<dynamic>? gameDataFuture;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: gameData == null
-          ? const CircularProgressIndicator()
-          : Column(
+    gameDataFuture = getGamesData(2023, 4, 28); //2023, 4, 28 / 2022,8,8
+
+    return FutureBuilder<dynamic>(
+      future: gameDataFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator();
+        } 
+        else {
+          dynamic gameData = snapshot.data;
+          if (gameData == null || gameData['games'] == null || gameData['games'].isEmpty) {
+            return const NoGamesToday();
+          } else {
+            return Column(
               children: List.generate(gameData['games'].length, (index) {
                 var gameData2 = gameData['games'][index];
                 gameID = gameData2['id'];
@@ -62,66 +54,59 @@ class _getGamesState extends State<GetGames> {
                 awayName = gameData2['away']['name'];
                 awayAlias = gameData2['away']['alias'];
 
-                print('Test: ${homeAlias}, ${awayAlias}, ${gameStatus}');
-
                 return Game(
-                  gameID: gameID,
-                  gameStatus: gameStatus,
-                  gameTitle: gameTitle,
-                  gameTime: gameTime,
-                  gameVenue: gameVenue,
-                  gameVenue2: gameVenue2,
-                  homeAlias: homeAlias,
-                  homeName: homeName,
-                  awayAlias: awayAlias,
-                  awayName: awayName,
+                  gameID: gameID ?? '',
+                  gameStatus: gameStatus ?? '',
+                  gameTitle: gameTitle ?? '',
+                  gameTime: gameTime ?? '',
+                  gameVenue: gameVenue ?? '',
+                  gameVenue2: gameVenue2 ?? '',
+                  homeAlias: homeAlias ?? '',
+                  homeName: homeName ?? '',
+                  awayAlias: awayAlias ?? '',
+                  awayName: awayName ?? '',
                 );
-
               }),
-            ),
+            );
+          }
+        }
+      },
+    );
+  }
+
+  Future<dynamic> getGamesData(int year, int month, int day) async {
+    String apiUrl =
+        'http://api.sportradar.us/nba/trial/v8/en/games/$year/$month/$day/schedule.json?api_key=$apiKey';
+
+    var response = await http.get(Uri.parse(apiUrl));
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      throw Exception('Failed to load game data');
+    }
+  }
+}
+
+class NoGamesToday extends StatelessWidget {
+  const NoGamesToday();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          height: 100,
+          width: 400,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: Colors.pinkAccent,
+          ),
+          child: const Text('No Games Today'),
+        ),
+      ],
     );
   }
 }
 
-// if (snapshot.connectionState == ConnectionState.waiting) {
-//   return const CircularProgressIndicator();
-// } else if (snapshot.hasError) {
-//   return Text('Error: ${snapshot.error}');
-// } else {
-//   var gameData = snapshot.data;
-//   print('Build: ${gameData}');
-//   return Container(
-//     child: gameData == null
-//         ? const CircularProgressIndicator()
-//         : Column(
-//             children:
-//                 List.generate(gameData['games'].length, (index) {
-//               var gameData2 = gameData['games'][index];
-              // gameID = gameData2['id'];
-              // gameStatus = gameData2['status'];
-              // gameTitle = gameData2['title'];
-              // gameTime = gameData2['scheduled'];
-              // gameVenue = gameData2['venue']['name'];
-              // gameVenue2 = gameData2['venue']['city'];
-              // homeName = gameData2['home']['name'];
-              // homeAlias = gameData2['home']['alias'];
-              // awayName = gameData2['away']['name'];
-              // awayAlias = gameData2['away']['alias'];
 
-//               print("Test: ${homeAlias}");
-
-              // return Game(
-              //   gameID: gameID,
-              //   gameStatus: gameStatus,
-              //   gameTitle: gameTitle,
-              //   gameTime: gameTime,
-              //   gameVenue: gameVenue,
-              //   gameVenue2: gameVenue2,
-              //   homeAlias: homeAlias,
-              //   homeName: homeName,
-              //   awayAlias: awayAlias,
-              //   awayName: awayName,
-              // );
-//             }),
-//           ),
-//   );

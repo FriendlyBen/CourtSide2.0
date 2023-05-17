@@ -32,6 +32,7 @@ class _MyAppState extends State<MyApp>{
       home: BlocBuilder<BottomNavBarCubit, int>(
         builder: (context, selectedIndex){
           return Scaffold(
+            backgroundColor: Colors.white,
             appBar: const CustomAppBar(),
             drawer: const CustomDrawer(),
             body: _getPage(selectedIndex),

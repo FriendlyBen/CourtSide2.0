@@ -88,7 +88,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         boxShadow: [
           BoxShadow(
               color: Colors.black.withOpacity(0.1),
-              spreadRadius: 1,
+              spreadRadius: 4,
               blurRadius: 1,
               offset: const Offset(0, 3)),
         ],
@@ -96,7 +96,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
         child: BottomNavigationBar(
-          backgroundColor: Colors.black,
+          backgroundColor: Colors.white,
           items: _BottomNavBarItems,
           currentIndex: bottomNavBarCubit.state,
           onTap: (index) => bottomNavBarCubit.updatePageIndex(index),
