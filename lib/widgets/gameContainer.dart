@@ -27,9 +27,10 @@ class Game extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if(gameID == null){
+    if (gameID == null) {
       return Container(
-        height:100, width: 400,
+        height: 100,
+        width: 400,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: Colors.pinkAccent,
@@ -41,7 +42,7 @@ class Game extends StatelessWidget {
       return Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: Colors.grey[350],
+            color: Colors.grey[100],
           ),
           margin: const EdgeInsets.all(10),
           padding: const EdgeInsets.all(5),
@@ -79,10 +80,16 @@ class Game extends StatelessWidget {
                         height: 100,
                         width: 100,
                         // color: Colors.black,
-                        child: Image.asset('assets/team/$homeAlias.png')),
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image:
+                                      AssetImage('assets/team/$homeAlias.png'),
+                                  fit: BoxFit.contain)),
+                        )),
                     Container(
-                      color: Colors.white,
-                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      // color: Colors.white,
+                      margin: const EdgeInsets.symmetric(horizontal: 1),
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -93,11 +100,17 @@ class Game extends StatelessWidget {
                             Text(gameVenue ?? ""),
                           ]),
                     ),
-                    SizedBox(
+                    Container(
                         height: 100,
                         width: 100,
                         // color: Colors.black,
-                        child: Image.asset('assets/team/$awayAlias.png')),
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image:
+                                      AssetImage('assets/team/$awayAlias.png'),
+                                  fit: BoxFit.contain)),
+                        )),
                   ],
                 ),
               )
@@ -138,35 +151,72 @@ class Game extends StatelessWidget {
                 ],
               ),
               Container(
-                margin: const EdgeInsets.only(top: 10),
-                child: Row(
-                  children: [
-                    Container(
-                        height: 100,
-                        width: 100,
-                        // color: Colors.black,
-                        child: Image.asset('assets/team/$homeAlias.png')),
-                    Container(
-                      color: Colors.white,
-                      margin: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                margin: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
+                color: Colors.black,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        width: 200,
+                        height: 200,
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          image: DecorationImage(
+                            image: AssetImage('assets/team/$homeAlias.png'),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      // SizedBox(width: 8),
+                      Container(
+                        color: Colors.white,
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(gameTitle ?? ""),
+                            Text(
+                              gameTitle ?? "",
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                             const SizedBox(height: 10),
-                            Text(gameTime ?? ""),
+                            Text(
+                              gameTime ?? "",
+                              style: const TextStyle(
+                                fontSize: 16,
+                              ),
+                            ),
                             const SizedBox(height: 10),
-                            Text(gameVenue ?? ""),
-                          ]),
-                    ),
-                    SizedBox(
-                        height: 100,
+                            Text(
+                              gameVenue ?? "",
+                              style: const TextStyle(
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      // SizedBox(width: 8),
+                      Container(
                         width: 100,
-                        // color: Colors.black,
-                        child: Image.asset('assets/team/$awayAlias.png')),
-                  ],
+                        height: 100,
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          image: DecorationImage(
+                            image: AssetImage('assets/team/$awayAlias.png'),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              )
+              ),
             ],
           ));
     } else {

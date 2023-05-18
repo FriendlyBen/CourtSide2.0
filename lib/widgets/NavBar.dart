@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:courtside_version_2/pages/homepage.dart';
 import 'package:courtside_version_2/pages/games.dart';
 import 'package:courtside_version_2/pages/favourites.dart';
@@ -21,9 +23,8 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
-  int _selectedIndex = 0;
 
-  final List<Widget> _pages = [HomePage(), GamesPage(), FavouritesPage(), PlayersPage(),];
+  static const List<Widget> _pages = [HomePage(), GamesPage(), FavouritesPage(), PlayersPage(),];
 
   Widget _currentPage = HomePage();
 
@@ -66,16 +67,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
       // backgroundColor: Colors.blueAccent,
     ),
   ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      print('Tapped: ${index}');
-      _selectedIndex = index;
-      _currentPage = _pages[index];
-    });
-
-    // Navigator.of(context).push(MaterialPageRoute(builder: (context)=> _currentPage));
-  }
 
   @override
   Widget build(BuildContext context) {

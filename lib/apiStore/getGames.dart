@@ -95,14 +95,17 @@ class NoGamesToday extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          height: 100,
-          width: 400,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: Colors.pinkAccent,
+        Container( margin: const EdgeInsets.all(10), padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: Colors.grey[300]),
+          child: Container(
+            height: 100,
+            width: 400,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Colors.grey[50],
+            ),
+            child: const Center(child: Text('No Games Today')),
           ),
-          child: const Text('No Games Today'),
         ),
       ],
     );

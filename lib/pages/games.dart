@@ -46,21 +46,13 @@ class GamesPage extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(//margin: const EdgeInsets.all(10), padding: const EdgeInsets.all(10),color: Colors.black,//this is for scheduled / closed game
-                child: const GetGames(),
+              Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color:Colors.grey[300]),
+                margin: const EdgeInsets.all(7),
+                padding: const EdgeInsets.all(2),
+                child: SingleChildScrollView(
+                  child: GetGames(),
+                ),
               ),
-              // Container(
-              //   decoration: BoxDecoration(
-              //     borderRadius: BorderRadius.circular(10),
-              //     color: Colors.grey.withOpacity(0.6),
-              //   ),
-              //   margin: const EdgeInsets.all(10),
-              //   width: 500,
-              //   height: 100,
-              //   child: const Center(
-              //     child: Text("This is for scheduled match"),
-              //   ),
-              // ),
             ],
           ),
         ),
