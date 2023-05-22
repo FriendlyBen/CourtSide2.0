@@ -51,8 +51,16 @@ class Game extends StatelessWidget {
           child: Column(
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  Container(
+                      margin: const EdgeInsets.only(left: 20),
+                      child: Text(
+                          style: const TextStyle(
+                              fontFamily: 'Roboto',
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500),
+                          '$gameTitle')),
                   Container(
                     decoration: BoxDecoration(
                       color: Colors.redAccent,
@@ -117,10 +125,10 @@ class Game extends StatelessWidget {
             ],
           ));
     } else if (gameStatus == 'scheduled') {
-      return Container(
+            return Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: Colors.grey[350],
+            color: Colors.grey[100],
           ),
           margin: const EdgeInsets.all(10),
           padding: const EdgeInsets.all(5),
@@ -129,114 +137,19 @@ class Game extends StatelessWidget {
           child: Column(
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    decoration: BoxDecoration(
-                      color: Colors.blueAccent,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    padding: const EdgeInsets.all(5),
-                    width: 100,
-                    child: Center(
+                      margin: const EdgeInsets.only(left: 20),
                       child: Text(
                           style: const TextStyle(
                               fontFamily: 'Roboto',
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15),
-                          gameStatus ?? ""),
-                    ),
-                  )
-                ],
-              ),
-              Container(
-                margin: const EdgeInsets.all(10),
-                padding: const EdgeInsets.all(10),
-                color: Colors.black,
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        width: 200,
-                        height: 200,
-                        decoration: BoxDecoration(
-                          color: Colors.black,
-                          image: DecorationImage(
-                            image: AssetImage('assets/team/$homeAlias.png'),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      // SizedBox(width: 8),
-                      Container(
-                        color: Colors.white,
-                        padding: const EdgeInsets.all(10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              gameTitle ?? "",
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            Text(
-                              gameTime ?? "",
-                              style: const TextStyle(
-                                fontSize: 16,
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            Text(
-                              gameVenue ?? "",
-                              style: const TextStyle(
-                                fontSize: 16,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      // SizedBox(width: 8),
-                      Container(
-                        width: 100,
-                        height: 100,
-                        decoration: BoxDecoration(
-                          color: Colors.black,
-                          image: DecorationImage(
-                            image: AssetImage('assets/team/$awayAlias.png'),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ));
-    } else if (gameStatus == 'inprogress') {
-      return Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: Colors.greenAccent,
-          ),
-          margin: const EdgeInsets.all(10),
-          padding: const EdgeInsets.all(5),
-          width: 400,
-          height: 150,
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500),
+                          '$gameTitle')),
                   Container(
                     decoration: BoxDecoration(
-                      color: Colors.redAccent,
+                      color: Colors.greenAccent,
                       borderRadius: BorderRadius.circular(20),
                     ),
                     padding: const EdgeInsets.all(5),
@@ -298,7 +211,7 @@ class Game extends StatelessWidget {
             ],
           ));
     } else {
-      return Container();
+      return SizedBox();
     }
     // else if (gameStatus == 'closed') {} else if (gameStatus == 'inprogress') {}
   }

@@ -29,7 +29,7 @@ class _GamesPageState extends State<GamesPage> {
   @override
   void initState() {
     super.initState();
-    gameDataFuture = getData(2023, 4, 28);
+    gameDataFuture = getData(2023, 5, 21);
   }
 
   Future<dynamic> getData(int year, int month, int day) async {
@@ -85,15 +85,21 @@ class _GamesPageState extends State<GamesPage> {
                     return const Text('Error occured');
                   } else {
                     final dynamic gameData = snapshot.data;
-                    // print(gameData);
 
-                    if (gameData == null) {
+                    if (gameData['games'].isEmpty) {
                       return const Text('No data available');
                     } else {
                       return Column(
                         children: [
                           GetLiveGames(data: gameData),
-                          GetGames(gameData: gameData),
+                          Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: Colors.grey[300],
+                              ),
+                              margin: const EdgeInsets.all(3),
+                              padding: const EdgeInsets.all(5),
+                              child: GetGames(gameData: gameData)),
                         ],
                       );
                     }
