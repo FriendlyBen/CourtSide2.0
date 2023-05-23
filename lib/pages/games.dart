@@ -29,7 +29,7 @@ class _GamesPageState extends State<GamesPage> {
   @override
   void initState() {
     super.initState();
-    gameDataFuture = getData(2023, 5, 21);
+    gameDataFuture = getData(2023, 5, 22);
   }
 
   Future<dynamic> getData(int year, int month, int day) async {
