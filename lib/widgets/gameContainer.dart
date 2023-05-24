@@ -1,3 +1,4 @@
+import 'package:courtside_version_2/pages/closedGameSummary.dart';
 import 'package:flutter/material.dart';
 
 class Game extends StatelessWidget {
@@ -39,91 +40,100 @@ class Game extends StatelessWidget {
       );
     }
     if (gameStatus == 'closed') {
-      return Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: Colors.grey[100],
-          ),
-          margin: const EdgeInsets.all(10),
-          padding: const EdgeInsets.all(5),
-          width: 400,
-          height: 150,
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                      margin: const EdgeInsets.only(left: 20),
-                      child: Text(
-                          style: const TextStyle(
-                              fontFamily: 'Roboto',
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500),
-                          '$gameTitle')),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.redAccent,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    padding: const EdgeInsets.all(5),
-                    width: 100,
-                    child: Center(
-                      child: Text(
-                          style: const TextStyle(
-                              fontFamily: 'Roboto',
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15),
-                          gameStatus ?? ''),
-                    ),
-                  )
-                ],
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 10),
-                child: Row(
+      return GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ClosedGameSummary(gameID: gameID!),
+            ),
+          );
+        },
+        child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Colors.grey[100],
+            ),
+            margin: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(5),
+            width: 400,
+            height: 150,
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                        height: 100,
-                        width: 100,
-                        // color: Colors.black,
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image:
-                                      AssetImage('assets/team/$homeAlias.png'),
-                                  fit: BoxFit.contain)),
-                        )),
+                        margin: const EdgeInsets.only(left: 20),
+                        child: Text(
+                            style: const TextStyle(
+                                fontFamily: 'Roboto',
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500),
+                            '$gameTitle')),
                     Container(
-                      // color: Colors.white,
-                      margin: const EdgeInsets.symmetric(horizontal: 1),
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(gameTitle ?? ""),
-                            const SizedBox(height: 10),
-                            Text(gameTime ?? ""),
-                            const SizedBox(height: 10),
-                            Text(gameVenue ?? ""),
-                          ]),
-                    ),
-                    Container(
-                        height: 100,
-                        width: 100,
-                        // color: Colors.black,
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image:
-                                      AssetImage('assets/team/$awayAlias.png'),
-                                  fit: BoxFit.contain)),
-                        )),
+                      decoration: BoxDecoration(
+                        color: Colors.redAccent,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      padding: const EdgeInsets.all(5),
+                      width: 100,
+                      child: Center(
+                        child: Text(
+                            style: const TextStyle(
+                                fontFamily: 'Roboto',
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15),
+                            gameStatus ?? ''),
+                      ),
+                    )
                   ],
                 ),
-              )
-            ],
-          ));
+                Container(
+                  margin: const EdgeInsets.only(top: 10),
+                  child: Row(
+                    children: [
+                      Container(
+                          height: 100,
+                          width: 100,
+                          // color: Colors.black,
+                          child: DecoratedBox(
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image:
+                                        AssetImage('assets/team/$homeAlias.png'),
+                                    fit: BoxFit.contain)),
+                          )),
+                      Container(
+                        // color: Colors.white,
+                        margin: const EdgeInsets.symmetric(horizontal: 1),
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(gameTitle ?? ""),
+                              const SizedBox(height: 10),
+                              Text(gameTime ?? ""),
+                              const SizedBox(height: 10),
+                              Text(gameVenue ?? ""),
+                            ]),
+                      ),
+                      Container(
+                          height: 100,
+                          width: 100,
+                          // color: Colors.black,
+                          child: DecoratedBox(
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image:
+                                        AssetImage('assets/team/$awayAlias.png'),
+                                    fit: BoxFit.contain)),
+                          )),
+                    ],
+                  ),
+                )
+              ],
+            )),
+      );
     } else if (gameStatus == 'scheduled') {
             return Container(
           decoration: BoxDecoration(
