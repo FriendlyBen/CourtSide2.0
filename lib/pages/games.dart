@@ -13,16 +13,6 @@ class GamesPage extends StatefulWidget {
 
 class _GamesPageState extends State<GamesPage> {
   static const String apiKey = 'rkcd9u7zu893xzms99pdmxtf';
-  late String? gameID;
-  late String? gameStatus;
-  late String? gameTitle;
-  late String? gameTime;
-  late String? gameVenue;
-  late String? gameVenue2;
-  late String? homeAlias;
-  late String? homeName;
-  late String? awayAlias;
-  late String? awayName;
 
   late Future<dynamic>? gameDataFuture;
 
