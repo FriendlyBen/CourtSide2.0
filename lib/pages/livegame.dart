@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
 class LiveGamePage extends StatefulWidget {
@@ -10,15 +13,70 @@ class LiveGamePage extends StatefulWidget {
 }
 
 class _LiveGamePageState extends State<LiveGamePage> {
+  StreamController<dynamic> streamController = StreamController<dynamic>();
+  Timer? timer;
+
+  @override
+  void initState() {
+    super.initState();
+    startTimer();
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    streamController.close();
+    super.dispose();
+  }
+
+  void startTimer() {
+    timer = Timer.periodic(const Duration(seconds: 15), (_) {
+      fetchData();
+    });
+  }
+
+  Future<void> fetchData() async {
+    final response = await http.get(
+      Uri.parse(
+          'http://api.sportradar.us/nba/trial/v8/en/games/${widget.gameID}/summary.json?api_key=rkcd9u7zu893xzms99pdmxtf'),
+    );
+
+    if (response.statusCode == 200) {
+      final jsonData = json.decode(response.body);
+      streamController.add(jsonData.toString());
+    } else {
+      throw Exception('Failed to fetch data');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-
-    print(widget.gameID);
-    return Column(mainAxisAlignment: MainAxisAlignment.center,crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-      Container(margin: const EdgeInsets.only(left: 20),
-        child: Text(style: TextStyle(fontSize: 20), widget.gameID),
+    return Scaffold(
+      appBar: AppBar(),
+      body: Center(
+        child: StreamBuilder(
+            stream: streamController.stream,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                final liveGameData = snapshot.data;
+                final homePoint = liveGameData['home']['statistics']['points'];
+                final awayPoint = liveGameData['away']['statistics']['points'];
+                return Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text('Home: $homePoint'),
+                      Text('Away: $awayPoint'),
+                    ],
+                  ),
+                );
+              } else if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}');
+              } else {
+                return const CircularProgressIndicator();
+              }
+            }),
       ),
-    ]);
+    );
   }
 }

@@ -23,91 +23,384 @@ class ClosedGameSummary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: fetchGameSummary(),
-      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
-        } else if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        } else {
-          final gameSummary = snapshot.data;
-          final homeAlias = gameSummary['home']['alias'];
-          final awayAlias = gameSummary['away']['alias'];
-          final homePoint = gameSummary['home']['points'];
-          final awayPoint = gameSummary['away']['points'];
+    return Scaffold(
+      backgroundColor: Colors.grey[200],
+      appBar: AppBar(), // Add a title
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: FutureBuilder(
+          future: fetchGameSummary(),
+          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (snapshot.hasError) {
+              return Center(
+                child: Text('Error: ${snapshot.error}'),
+              );
+            } else {
+              final gameSummary = snapshot.data;
+              final homeAlias = gameSummary['home']['alias'];
+              final awayAlias = gameSummary['away']['alias'];
+              final homePoint = gameSummary['home']['points'];
+              final awayPoint = gameSummary['away']['points'];
+              final homeFGM =
+                  gameSummary['home']['statistics']['field_goals_made'];
+              final homeFGA =
+                  gameSummary['home']['statistics']['field_goals_att'];
+              final homeFGP =
+                  gameSummary['home']['statistics']['field_goals_pct'];
+              final awayFGM =
+                  gameSummary['away']['statistics']['field_goals_made'];
+              final awayFGA =
+                  gameSummary['away']['statistics']['field_goals_att'];
+              final awayFGP =
+                  gameSummary['away']['statistics']['field_goals_pct'];
+              final homeFTA =
+                  gameSummary['home']['statistics']['free_throws_att'];
+              final homeFTM =
+                  gameSummary['home']['statistics']['free_throws_made'];
+              final homeFTP =
+                  gameSummary['home']['statistics']['field_goals_pct'];
+              final awayFTA =
+                  gameSummary['away']['statistics']['free_throws_att'];
+              final awayFTM =
+                  gameSummary['away']['statistics']['free_throws_made'];
+              final awayFTP =
+                  gameSummary['away']['statistics']['field_goals_pct'];
+              final homeDR =
+                  gameSummary['home']['statistics']['defensive_rebounds'];
+              final homeOR =
+                  gameSummary['home']['statistics']['offensive_rebounds'];
+              final awayDR =
+                  gameSummary['away']['statistics']['defensive_rebounds'];
+              final awayOR =
+                  gameSummary['away']['statistics']['offensive_rebounds'];
+              final homeAssist = gameSummary['home']['statistics']['assists'];
+              final awayAssist = gameSummary['away']['statistics']['assists'];
+              final homeSteals = gameSummary['home']['statistics']['steals'];
+              final awaySteals = gameSummary['away']['statistics']['steals'];
+              final homeBlocks = gameSummary['home']['statistics']['blocks'];
+              final awayBlocks = gameSummary['away']['statistics']['blocks'];
+              final homeTotalFouls =
+                  gameSummary['home']['statistics']['total_fouls'];
+              final awayTotalFouls =
+                  gameSummary['away']['statistics']['total_fouls'];
+              final homeTurnovers =
+                  gameSummary['home']['statistics']['total_turnovers'];
+              final awayTurnovers =
+                  gameSummary['away']['statistics']['total_turnovers'];
+              final homeBiggestLead =
+                  gameSummary['home']['statistics']['biggest_lead'];
+              final awayBiggestLead =
+                  gameSummary['away']['statistics']['biggest_lead'];
+              final homeBenchPoints =
+                  gameSummary['home']['statistics']['bench_points'];
+              final awayBenchPoints =
+                  gameSummary['away']['statistics']['bench_points'];
+              final homeOffensiveRating =
+                  gameSummary['home']['statistics']['offensive_rating'];
+              final awayOffensiveRating =
+                  gameSummary['away']['statistics']['offensive_rating'];
+              final homeDefensiveRating =
+                  gameSummary['home']['statistics']['defensive_rating'];
+              final awayDefensiveRating =
+                  gameSummary['away']['statistics']['defensive_rating'];
 
-          print(gameSummary);
-          print(homeAlias);
-
-          return Scaffold(
-            appBar: AppBar(),
-            body: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Center(
-                child: Column(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.grey[400],
-                      ),
-                      margin: const EdgeInsets.all(10),
-                      width: 500,
-                      height: 40,
-                      child: const Center(
-                        child: Text('This is the closed game summary page'),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 200,
-                      width: 400,
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SizedBox(
+              return SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Center(
+                  child: Column(
+                    children: [
+                      Container(
+                        decoration: const BoxDecoration(
+                            color: Color.fromARGB(255, 174, 200, 245),
+                            borderRadius: BorderRadius.vertical(
+                                bottom: Radius.circular(20))),
+                        height: 200,
+                        width: 400,
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.all(10),
+                                  margin: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
                                   height: 100,
                                   width: 100,
-                                  // color: Colors.black,
                                   child: DecoratedBox(
                                     decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            image: AssetImage(
-                                                'assets/team/$homeAlias.png'),
-                                            fit: BoxFit.contain)),
-                                  )),
-                              SizedBox(
+                                      image: DecorationImage(
+                                        image: AssetImage(
+                                            'assets/team/$homeAlias.png'),
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.all(10),
+                                  margin: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(20)),
                                   height: 100,
                                   width: 100,
-                                  // color: Colors.black,
                                   child: DecoratedBox(
                                     decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            image: AssetImage(
-                                                'assets/team/$awayAlias.png'),
-                                            fit: BoxFit.contain)),
-                                  )),
-                            ],
+                                      image: DecorationImage(
+                                        image: AssetImage(
+                                            'assets/team/$awayAlias.png'),
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                homePoint > awayPoint
+                                    ? Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(20)),
+                                        padding: const EdgeInsets.all(10),
+                                        child: Text(homePoint.toString(),
+                                            style: const TextStyle(
+                                                color: Colors.green,
+                                                fontSize: 30,
+                                                fontWeight: FontWeight.w500)),
+                                      )
+                                    : Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(20)),
+                                        padding: const EdgeInsets.all(10),
+                                        child: Text(homePoint.toString(),
+                                            style: const TextStyle(
+                                                color: Colors.redAccent,
+                                                fontSize: 30,
+                                                fontWeight: FontWeight.w500)),
+                                      ),
+                                homePoint > awayPoint
+                                    ? Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(20)),
+                                        padding: const EdgeInsets.all(10),
+                                        child: Text(awayPoint.toString(),
+                                            style: const TextStyle(
+                                                color: Colors.redAccent,
+                                                fontSize: 30,
+                                                fontWeight: FontWeight.w500)),
+                                      )
+                                    : Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(20)),
+                                        padding: const EdgeInsets.all(10),
+                                        child: Text(awayPoint.toString(),
+                                            style: const TextStyle(
+                                                color: Colors.green,
+                                                fontSize: 30,
+                                                fontWeight: FontWeight.w500)),
+                                      ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.only(top: 10),
+                        height: 560,
+                        margin: const EdgeInsets.only(top: 5),
+                        decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(20))),
+                        child: Column(children: [
+                          Container(
+                            margin: const EdgeInsets.only(bottom: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                Text(
+                                    style: TextStyle(
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.w400),
+                                    'Statistics')
+                              ],
+                            ),
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Text(homePoint.toString()),
-                              Text(awayPoint.toString()),
+                              Container(
+                                padding: const EdgeInsets.all(10),
+                                width: 110,
+                                height: 500,
+                                color: Colors.blue,
+                                child: Column(children: [
+                                  const Text(
+                                          style: TextStyle(fontSize: 17),
+                                          'Field Goals'),
+                                      const SizedBox(height: 10),
+                                      const Text(
+                                          style: TextStyle(fontSize: 17),
+                                          '3 Pointers'),
+                                      const SizedBox(height: 10),
+                                      const Text(
+                                          style: TextStyle(fontSize: 17),
+                                          'Free Throws'),
+                                      const SizedBox(height: 10),
+                                      Container(
+                                          padding:
+                                              const EdgeInsets.only(left: 25),
+                                          child: const Text(
+                                              style: TextStyle(fontSize: 17),
+                                              'Defensive Rebounds')),
+                                      const SizedBox(height: 10),
+                                      Container(
+                                          padding:
+                                              const EdgeInsets.only(left: 25),
+                                          child: const Text(
+                                              style: TextStyle(fontSize: 17),
+                                              'Offensive Rebounds')),
+                                      const SizedBox(height: 10),
+                                      const Text(
+                                          style: TextStyle(fontSize: 17),
+                                          'Assist'),
+                                      const SizedBox(height: 10),
+                                      const Text(
+                                          style: TextStyle(fontSize: 17),
+                                          'Steals'),
+                                      const SizedBox(height: 10),
+                                      const Text(
+                                          style: TextStyle(fontSize: 17),
+                                          'Blocks'),
+                                      const SizedBox(height: 10),
+                                      const Text(
+                                          style: TextStyle(fontSize: 17),
+                                          'Total Fouls'),
+                                      const SizedBox(height: 10),
+                                      const Text(
+                                          style: TextStyle(fontSize: 17),
+                                          'Total Turnovers'),
+                                      const SizedBox(height: 10),
+                                      const Text(
+                                          style: TextStyle(fontSize: 17),
+                                          'Biggest Lead'),
+                                      const SizedBox(height: 10),
+                                      const Text(
+                                          style: TextStyle(fontSize: 17),
+                                          'Bench Points'),
+                                      const SizedBox(height: 10),
+                                      const Text(
+                                          style: TextStyle(fontSize: 17),
+                                          'Offensive Rating'),
+                                      const SizedBox(height: 10),
+                                      const Text(
+                                          style: TextStyle(fontSize: 17),
+                                          'Defensive Rating'),
+                                ]),
+                              ),
+                              Container(
+                                padding: const EdgeInsets.all(10),
+                                width: 150,
+                                height: 500,
+                                // color: Colors.green,
+                                child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const Text(
+                                          style: TextStyle(fontSize: 17),
+                                          'Field Goals'),
+                                      const SizedBox(height: 10),
+                                      const Text(
+                                          style: TextStyle(fontSize: 17),
+                                          '3 Pointers'),
+                                      const SizedBox(height: 10),
+                                      const Text(
+                                          style: TextStyle(fontSize: 17),
+                                          'Free Throws'),
+                                      const SizedBox(height: 10),
+                                      Container(
+                                          padding:
+                                              const EdgeInsets.only(left: 25),
+                                          child: const Text(
+                                              style: TextStyle(fontSize: 17),
+                                              'Defensive Rebounds')),
+                                      const SizedBox(height: 10),
+                                      Container(
+                                          padding:
+                                              const EdgeInsets.only(left: 25),
+                                          child: const Text(
+                                              style: TextStyle(fontSize: 17),
+                                              'Offensive Rebounds')),
+                                      const SizedBox(height: 10),
+                                      const Text(
+                                          style: TextStyle(fontSize: 17),
+                                          'Assist'),
+                                      const SizedBox(height: 10),
+                                      const Text(
+                                          style: TextStyle(fontSize: 17),
+                                          'Steals'),
+                                      const SizedBox(height: 10),
+                                      const Text(
+                                          style: TextStyle(fontSize: 17),
+                                          'Blocks'),
+                                      const SizedBox(height: 10),
+                                      const Text(
+                                          style: TextStyle(fontSize: 17),
+                                          'Total Fouls'),
+                                      const SizedBox(height: 10),
+                                      const Text(
+                                          style: TextStyle(fontSize: 17),
+                                          'Total Turnovers'),
+                                      const SizedBox(height: 10),
+                                      const Text(
+                                          style: TextStyle(fontSize: 17),
+                                          'Biggest Lead'),
+                                      const SizedBox(height: 10),
+                                      const Text(
+                                          style: TextStyle(fontSize: 17),
+                                          'Bench Points'),
+                                      const SizedBox(height: 10),
+                                      const Text(
+                                          style: TextStyle(fontSize: 17),
+                                          'Offensive Rating'),
+                                      const SizedBox(height: 10),
+                                      const Text(
+                                          style: TextStyle(fontSize: 17),
+                                          'Defensive Rating'),
+                                    ]),
+                              ),
+                              Container(
+                                  width: 100, height: 300, color: Colors.red)
                             ],
                           ),
-                        ],
+                        ]),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          );
-        }
-      },
+              );
+            }
+          },
+        ),
+      ),
     );
   }
 }
