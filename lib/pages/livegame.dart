@@ -30,7 +30,7 @@ class _LiveGamePageState extends State<LiveGamePage> {
   }
 
   void startTimer() {
-    timer = Timer.periodic(const Duration(seconds: 15), (_) {
+    timer = Timer.periodic(const Duration(seconds: 5), (_) {
       fetchData();
     });
   }
@@ -38,12 +38,13 @@ class _LiveGamePageState extends State<LiveGamePage> {
   Future<void> fetchData() async {
     final response = await http.get(
       Uri.parse(
-          'http://api.sportradar.us/nba/trial/v8/en/games/${widget.gameID}/summary.json?api_key=rkcd9u7zu893xzms99pdmxtf'),
+        'http://api.sportradar.us/nba/trial/v8/en/games/${widget.gameID}/summary.json?api_key=rkcd9u7zu893xzms99pdmxtf',
+      ),
     );
 
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
-      streamController.add(jsonData.toString());
+      streamController.add(jsonData); // Pass the decoded jsonData as is
     } else {
       throw Exception('Failed to fetch data');
     }
@@ -55,27 +56,41 @@ class _LiveGamePageState extends State<LiveGamePage> {
       appBar: AppBar(),
       body: Center(
         child: StreamBuilder(
-            stream: streamController.stream,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                final liveGameData = snapshot.data;
-                final homePoint = liveGameData['home']['statistics']['points'];
-                final awayPoint = liveGameData['away']['statistics']['points'];
-                return Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text('Home: $homePoint'),
-                      Text('Away: $awayPoint'),
-                    ],
-                  ),
-                );
-              } else if (snapshot.hasError) {
-                return Text('Error: ${snapshot.error}');
-              } else {
-                return const CircularProgressIndicator();
-              }
-            }),
+          stream: streamController.stream,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              final liveGameData = snapshot.data;
+              final homePoint =
+                  liveGameData['home']['statistics']['points'].toString();
+              final awayPoint =
+                  liveGameData['away']['statistics']['points'].toString();
+                  print(homePoint);
+              print(awayPoint);
+              final quarter = liveGameData['quarter'];
+              final clock = liveGameData['clock'];
+              print(clock);
+              return Center(
+                child: Column(
+                  children: [
+                    Text('Quarter: $quarter'),
+                    Text('Time Left: $clock'),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Text('Home: $homePoint'),
+                        Text('Away: $awayPoint'),
+                      ],
+                    )
+                  ],
+                ),
+              );
+            } else if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else {
+              return const CircularProgressIndicator();
+            }
+          },
+        ),
       ),
     );
   }
