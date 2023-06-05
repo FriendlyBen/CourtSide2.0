@@ -244,152 +244,150 @@ class ClosedGameSummary extends StatelessWidget {
                               ],
                             ),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.all(10),
-                                width: 110,
-                                height: 500,
-                                color: Colors.blue,
-                                child: Column(children: [
-                                  const Text(
-                                          style: TextStyle(fontSize: 17),
-                                          'Field Goals'),
-                                      const SizedBox(height: 10),
-                                      const Text(
-                                          style: TextStyle(fontSize: 17),
-                                          '3 Pointers'),
-                                      const SizedBox(height: 10),
-                                      const Text(
-                                          style: TextStyle(fontSize: 17),
-                                          'Free Throws'),
-                                      const SizedBox(height: 10),
-                                      Container(
-                                          padding:
-                                              const EdgeInsets.only(left: 25),
-                                          child: const Text(
-                                              style: TextStyle(fontSize: 17),
-                                              'Defensive Rebounds')),
-                                      const SizedBox(height: 10),
-                                      Container(
-                                          padding:
-                                              const EdgeInsets.only(left: 25),
-                                          child: const Text(
-                                              style: TextStyle(fontSize: 17),
-                                              'Offensive Rebounds')),
-                                      const SizedBox(height: 10),
-                                      const Text(
-                                          style: TextStyle(fontSize: 17),
-                                          'Assist'),
-                                      const SizedBox(height: 10),
-                                      const Text(
-                                          style: TextStyle(fontSize: 17),
-                                          'Steals'),
-                                      const SizedBox(height: 10),
-                                      const Text(
-                                          style: TextStyle(fontSize: 17),
-                                          'Blocks'),
-                                      const SizedBox(height: 10),
-                                      const Text(
-                                          style: TextStyle(fontSize: 17),
-                                          'Total Fouls'),
-                                      const SizedBox(height: 10),
-                                      const Text(
-                                          style: TextStyle(fontSize: 17),
-                                          'Total Turnovers'),
-                                      const SizedBox(height: 10),
-                                      const Text(
-                                          style: TextStyle(fontSize: 17),
-                                          'Biggest Lead'),
-                                      const SizedBox(height: 10),
-                                      const Text(
-                                          style: TextStyle(fontSize: 17),
-                                          'Bench Points'),
-                                      const SizedBox(height: 10),
-                                      const Text(
-                                          style: TextStyle(fontSize: 17),
-                                          'Offensive Rating'),
-                                      const SizedBox(height: 10),
-                                      const Text(
-                                          style: TextStyle(fontSize: 17),
-                                          'Defensive Rating'),
-                                ]),
-                              ),
-                              Container(
-                                padding: const EdgeInsets.all(10),
-                                width: 150,
-                                height: 500,
-                                // color: Colors.green,
-                                child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      const Text(
-                                          style: TextStyle(fontSize: 17),
-                                          'Field Goals'),
-                                      const SizedBox(height: 10),
-                                      const Text(
-                                          style: TextStyle(fontSize: 17),
-                                          '3 Pointers'),
-                                      const SizedBox(height: 10),
-                                      const Text(
-                                          style: TextStyle(fontSize: 17),
-                                          'Free Throws'),
-                                      const SizedBox(height: 10),
-                                      Container(
-                                          padding:
-                                              const EdgeInsets.only(left: 25),
-                                          child: const Text(
-                                              style: TextStyle(fontSize: 17),
-                                              'Defensive Rebounds')),
-                                      const SizedBox(height: 10),
-                                      Container(
-                                          padding:
-                                              const EdgeInsets.only(left: 25),
-                                          child: const Text(
-                                              style: TextStyle(fontSize: 17),
-                                              'Offensive Rebounds')),
-                                      const SizedBox(height: 10),
-                                      const Text(
-                                          style: TextStyle(fontSize: 17),
-                                          'Assist'),
-                                      const SizedBox(height: 10),
-                                      const Text(
-                                          style: TextStyle(fontSize: 17),
-                                          'Steals'),
-                                      const SizedBox(height: 10),
-                                      const Text(
-                                          style: TextStyle(fontSize: 17),
-                                          'Blocks'),
-                                      const SizedBox(height: 10),
-                                      const Text(
-                                          style: TextStyle(fontSize: 17),
-                                          'Total Fouls'),
-                                      const SizedBox(height: 10),
-                                      const Text(
-                                          style: TextStyle(fontSize: 17),
-                                          'Total Turnovers'),
-                                      const SizedBox(height: 10),
-                                      const Text(
-                                          style: TextStyle(fontSize: 17),
-                                          'Biggest Lead'),
-                                      const SizedBox(height: 10),
-                                      const Text(
-                                          style: TextStyle(fontSize: 17),
-                                          'Bench Points'),
-                                      const SizedBox(height: 10),
-                                      const Text(
-                                          style: TextStyle(fontSize: 17),
-                                          'Offensive Rating'),
-                                      const SizedBox(height: 10),
-                                      const Text(
-                                          style: TextStyle(fontSize: 17),
-                                          'Defensive Rating'),
-                                    ]),
-                              ),
-                              Container(
-                                  width: 100, height: 300, color: Colors.red)
-                            ],
+                          Container(
+                            margin: const EdgeInsets.symmetric(
+                                vertical: 5), //field goal
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text('$homeFGP% [$homeFGM/$homeFGA]'),
+                                const Text('Field Goal'),
+                                Text('$awayFGP% [$awayFGM/$awayFGA]'),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.symmetric(
+                                vertical: 5), //free throw
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text('$homeFTP% [$homeFTM/$homeFTA]'),
+                                const Text('Free Throw'),
+                                Text('$awayFTP% [$awayFTM/$awayFTA]'),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.symmetric(vertical: 5),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text('$homeDR'),
+                                const Text('Defensive rebounds'),
+                                Text('$awayDR'),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.symmetric(vertical: 5),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text('$homeOR'),
+                                const Text('Offensive Rebounds'),
+                                Text('$awayOR'),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.symmetric(vertical: 5),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text('$homeSteals'),
+                                const Text('Steals'),
+                                Text('$awaySteals'),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.symmetric(vertical: 5),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text('$homeAssist'),
+                                const Text('Assists'),
+                                Text('$awayAssist'),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.symmetric(vertical: 5),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text('$homeBlocks'),
+                                const Text('Blocks'),
+                                Text('$awayBlocks'),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.symmetric(vertical: 5),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text('$homeTurnovers'),
+                                const Text('Turnovers'),
+                                Text('$awayTurnovers'),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.symmetric(vertical: 5),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text('$homeTotalFouls'),
+                                const Text('Fouls'),
+                                Text('$awayTotalFouls'),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.symmetric(vertical: 5),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text('$homeBiggestLead'),
+                                const Text('Biggest Lead'),
+                                Text('$awayBiggestLead'),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.symmetric(vertical: 5),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text('$homeBenchPoints'),
+                                const Text('Bench Points'),
+                                Text('$awayBenchPoints'),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.symmetric(vertical: 5),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text('$homeOffensiveRating'),
+                                const Text('Offensive Rating'),
+                                Text('$awayOffensiveRating'),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.symmetric(vertical: 5),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text('$homeDefensiveRating'),
+                                const Text('Defensive Rating'),
+                                Text('$awayDefensiveRating'),
+                              ],
+                            ),
                           ),
                         ]),
                       ),

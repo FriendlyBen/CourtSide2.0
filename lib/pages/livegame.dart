@@ -30,7 +30,7 @@ class _LiveGamePageState extends State<LiveGamePage> {
   }
 
   void startTimer() {
-    timer = Timer.periodic(const Duration(seconds: 5), (_) {
+    timer = Timer.periodic(const Duration(seconds: 3), (_) {
       fetchData();
     });
   }
@@ -44,7 +44,9 @@ class _LiveGamePageState extends State<LiveGamePage> {
 
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
-      streamController.add(jsonData); // Pass the decoded jsonData as is
+      if (!streamController.isClosed) {
+        streamController.add(jsonData); // Pass the decoded jsonData as is
+      }
     } else {
       throw Exception('Failed to fetch data');
     }
@@ -64,7 +66,7 @@ class _LiveGamePageState extends State<LiveGamePage> {
                   liveGameData['home']['statistics']['points'].toString();
               final awayPoint =
                   liveGameData['away']['statistics']['points'].toString();
-                  print(homePoint);
+              print(homePoint);
               print(awayPoint);
               final quarter = liveGameData['quarter'];
               final clock = liveGameData['clock'];
