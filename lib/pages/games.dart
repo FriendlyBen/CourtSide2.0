@@ -84,35 +84,35 @@ class _GamesPageState extends State<GamesPage> {
                   ),
                 ),
               ),
-                          FutureBuilder<dynamic>(
-                future: gameDataFuture,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator();
-                  } else if (snapshot.hasError) {
-                    return const Text('Error occured');
-                  } else {
-                    final dynamic gameData = snapshot.data;
-
-                    if (gameData['games'].isEmpty) {
-                      return const Text('No data available');
+              FutureBuilder<dynamic>(
+                  future: gameDataFuture,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const CircularProgressIndicator();
+                    } else if (snapshot.hasError) {
+                      return const Text('Error occured');
                     } else {
-                      return Column(
-                        children: [
-                          GetLiveGames(data: gameData),
-                          Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Colors.grey[300],
-                              ),
-                              margin: const EdgeInsets.all(3),
-                              padding: const EdgeInsets.all(5),
-                              child: GetGames(gameData: gameData)),
-                        ],
-                      );
+                      final dynamic gameData = snapshot.data;
+
+                      if (gameData['games'].isEmpty) {
+                        return const Text('No data available');
+                      } else {
+                        return Column(
+                          children: [
+                            GetLiveGames(data: gameData),
+                            Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Colors.grey[300],
+                                ),
+                                margin: const EdgeInsets.all(3),
+                                padding: const EdgeInsets.all(5),
+                                child: GetGames(gameData: gameData)),
+                          ],
+                        );
+                      }
                     }
-                  }
-                })
+                  })
             ],
           ),
         ),
