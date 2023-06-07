@@ -372,9 +372,9 @@ class ClosedGameSummary extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                Text('$homeOffensiveRating'),
+                                Text('${homeOffensiveRating.toStringAsFixed(2)}'),
                                 const Text('Offensive Rating'),
-                                Text('$awayOffensiveRating'),
+                                Text('${awayOffensiveRating.toStringAsFixed(2)}'),
                               ],
                             ),
                           ),
@@ -383,9 +383,9 @@ class ClosedGameSummary extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                Text('$homeDefensiveRating'),
+                                Text('${homeDefensiveRating.toStringAsFixed(2)}'),
                                 const Text('Defensive Rating'),
-                                Text('$awayDefensiveRating'),
+                                Text('${awayDefensiveRating.toStringAsFixed(2)}'),
                               ],
                             ),
                           ),

@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:courtside_version_2/apiStore/getGames.dart';
 import 'package:courtside_version_2/apiStore/getLiveGames.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -15,25 +15,41 @@ class _GamesPageState extends State<GamesPage> {
   static const String apiKey = 'rkcd9u7zu893xzms99pdmxtf';
 
   late Future<dynamic>? gameDataFuture;
+  late DateTime selectedDate;
 
   @override
   void initState() {
     super.initState();
-    gameDataFuture = getData(2023, 6, 1);
+    // Set the initial selected date to the current date
+    selectedDate = DateTime.now();
+    gameDataFuture = fetchData(selectedDate);
   }
 
-  Future<dynamic> getData(int year, int month, int day) async {
+  Future<dynamic> fetchData(DateTime date) async {
     String apiUrl =
-        'http://api.sportradar.us/nba/trial/v8/en/games/$year/$month/$day/schedule.json?api_key=$apiKey';
+        'http://api.sportradar.us/nba/trial/v8/en/games/${date.year}/${date.month}/${date.day}/schedule.json?api_key=$apiKey';
 
     var response = await http.get(Uri.parse(apiUrl));
 
     if (response.statusCode == 200) {
-      // print(response.body);
-      // print(jsonDecode(response.body));
       return jsonDecode(response.body);
     } else {
       throw Exception('Failed to load data');
+    }
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2023),
+      lastDate: DateTime(2024),
+    );
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+        gameDataFuture = fetchData(selectedDate);
+      });
     }
   }
 
@@ -43,30 +59,32 @@ class _GamesPageState extends State<GamesPage> {
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Center(
-            child: Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: Colors.grey[400],
+          child: Column(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.blueAccent.withOpacity(0.1),
+                ),
+                margin: const EdgeInsets.all(10),
+                width: 500,
+                height: 40,
+                child: TextButton(
+                  onPressed: () => _selectDate(context),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.calendar_today),
+                      const SizedBox(width: 8),
+                      Text(
+                        '${selectedDate.year}-${selectedDate.month}-${selectedDate.day}',
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-              margin: const EdgeInsets.all(10),
-              width: 500,
-              height: 40,
-              child: const Center(
-                child: Text('This is for the date bar'),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(left: 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: const [
-                  Text('Today', style: TextStyle(fontSize: 25)),
-                ],
-              ),
-            ),
-            FutureBuilder<dynamic>(
+                          FutureBuilder<dynamic>(
                 future: gameDataFuture,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
@@ -95,8 +113,9 @@ class _GamesPageState extends State<GamesPage> {
                     }
                   }
                 })
-          ],
-        )),
+            ],
+          ),
+        ),
       ),
     );
   }
