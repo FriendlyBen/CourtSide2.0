@@ -1,8 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:courtside_version_2/widgets/horiScrollbar.dart';
+import 'package:http/http.dart' as http;
 
-class PlayersPage extends StatelessWidget {
+class PlayersPage extends StatefulWidget {
   const PlayersPage({Key? key}) : super(key: key);
+
+  @override
+  _PlayersPageState createState() => _PlayersPageState();
+}
+
+class _PlayersPageState extends State<PlayersPage> {
+  static const apiKey = 'rkcd9u7zu893xzms99pdmxtf';
+
+  late Future<dynamic>? teamDataFuture;
+  late String teamSelected;
+
+  @override
+  void initState(){
+    
+  }
+
+
+  Future<dynamic> teamData(String teamID) async {
+    String apiUrl =
+        'http://api.sportradar.us/nba/trial/v8/en/teams/$teamID/profile.json?api_key=$apiKey';
+    
+    var response = await http.get(Uri.parse(apiUrl));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +43,8 @@ class PlayersPage extends StatelessWidget {
                 return Row(
                   children: [
                     Expanded(
-                      child: Container( margin: const EdgeInsets.all(5),
+                      child: Container(
+                        margin: const EdgeInsets.all(5),
                         height: 100,
                         alignment: Alignment.center,
                         color: index % 2 == 0
@@ -32,7 +57,8 @@ class PlayersPage extends StatelessWidget {
                       ),
                     ),
                     Expanded(
-                      child: Container( margin: const EdgeInsets.all(5),
+                      child: Container(
+                        margin: const EdgeInsets.all(5),
                         height: 100,
                         alignment: Alignment.center,
                         color: index % 2 == 0

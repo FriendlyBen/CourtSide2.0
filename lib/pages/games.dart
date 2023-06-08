@@ -42,7 +42,7 @@ class _GamesPageState extends State<GamesPage> {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: selectedDate,
-      firstDate: DateTime(2023),
+      firstDate: DateTime(2010),
       lastDate: DateTime(2024),
     );
     if (picked != null && picked != selectedDate) {
@@ -74,7 +74,7 @@ class _GamesPageState extends State<GamesPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.calendar_today),
+                      const Icon(Icons.calendar_today),
                       const SizedBox(width: 8),
                       Text(
                         '${selectedDate.year}-${selectedDate.month}-${selectedDate.day}',
