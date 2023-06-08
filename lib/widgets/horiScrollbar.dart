@@ -18,6 +18,7 @@ class _HorizontalScrollBarState extends State<HorizontalScrollBar> {
     'CLE',
     'DAL',
     'DEN',
+    'DET',
     'GSW',
     'HOU',
     'IND',
