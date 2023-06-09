@@ -35,11 +35,13 @@ class _PlayersPageState extends State<PlayersPage> {
   void initState() {
     super.initState();
     teamDataFuture = teamData(teamValues[selectedTeam]);
-    // teamDataFuture?.then((data) {
-    //   print(data); // Print the fetched data
-    // }).catchError((error) {
-    //   print('Error occurred: $error'); // Print any error that occurred
-    // });
+  }
+
+  void updateSelectedTeam(int index){
+    setState(() {
+      selectedTeam = index;
+      teamDataFuture = teamData(teamValues[selectedTeam]);
+    });
   }
 
   @override
@@ -48,7 +50,7 @@ class _PlayersPageState extends State<PlayersPage> {
       body: Column(
         children: [
           const SizedBox(height: 20),
-          HorizontalScrollBar(),
+          HorizontalScrollBar(selectedIndex: selectedTeam, onTeamSelected: updateSelectedTeam),
           const SizedBox(height: 20),
           FutureBuilder<dynamic>(
               future: teamDataFuture,

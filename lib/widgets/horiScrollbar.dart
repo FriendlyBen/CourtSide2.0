@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 
 class HorizontalScrollBar extends StatefulWidget {
+  final int selectedIndex;
+  final Function(int) onTeamSelected;
+
+  const HorizontalScrollBar({
+    required this.selectedIndex,
+    required this.onTeamSelected,
+  });
+
   @override
   _HorizontalScrollBarState createState() => _HorizontalScrollBarState();
 }
 
 class _HorizontalScrollBarState extends State<HorizontalScrollBar> {
-  int selectedIndex = 0;
-
   // Example list of team names
   List<String> teamNames = [
     'ATL',
@@ -40,7 +46,6 @@ class _HorizontalScrollBarState extends State<HorizontalScrollBar> {
     'TOR',
     'UTA',
     'WAS'
-
   ];
 
   String getTeamImagePath(String teamName) {
@@ -56,7 +61,7 @@ class _HorizontalScrollBarState extends State<HorizontalScrollBar> {
         scrollDirection: Axis.horizontal,
         itemCount: teamNames.length,
         itemBuilder: (context, index) {
-          bool isSelected = index == selectedIndex;
+          bool isSelected = index == widget.selectedIndex;
           double margin = isSelected ? 0.0 : 5.0;
 
           String teamName = teamNames[index];
@@ -64,19 +69,19 @@ class _HorizontalScrollBarState extends State<HorizontalScrollBar> {
 
           return GestureDetector(
             onTap: () {
-              setState(() {
-                selectedIndex = index;
-              });
+              widget.onTeamSelected(index);
             },
             child: Container(
-              width: isSelected ? 100.0 : 60.0, // Adjust the width directly
-              height: isSelected ? 100.0 : 60.0, // Adjust the height directly
+              width: isSelected ? 100.0 : 60.0,
+              height: isSelected ? 100.0 : 60.0,
               margin: EdgeInsets.all(margin),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.grey[300],
-                border: Border.all(color: isSelected ? Colors.blueAccent : Colors.transparent,
-                width: 10)
+                border: Border.all(
+                  color: isSelected ? Colors.blueAccent : Colors.transparent,
+                  width: 10,
+                ),
               ),
               child: ClipOval(
                 child: Image.asset(
@@ -91,3 +96,4 @@ class _HorizontalScrollBarState extends State<HorizontalScrollBar> {
     );
   }
 }
+
